@@ -39,9 +39,8 @@
 </head>
 <body onload="playVideo()">      
 
-    <!-- autoplay + muted เพื่อให้ browser ยอมเล่น -->
     <audio id="bgMusic" autoplay>
-        <source src="soundeffect/leva-in-the-dark-176514.mp3" type="audio/mp3">
+        <source src="./opening sound/leva-in-the-dark-176514.mp3" type="audio/mp3">
     </audio>
 
     <video id="video1" preload="auto">
@@ -73,7 +72,6 @@
             video2.classList.add('show');
             video2.play().catch(err => console.log("Autoplay blocked:", err));
 
-            // ✅ เริ่มจับเวลา 10 วิหลัง video2 เล่น
             video2.onplay = function() {
                 setTimeout(() => {
                     bgMusic.play().catch(err => console.log("Audio autoplay blocked:", err));
@@ -104,4 +102,5 @@
 </script>
 </body>
 </html>
+
 
