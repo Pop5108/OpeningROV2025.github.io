@@ -38,8 +38,9 @@
 </style>
 </head>
 <body onload="playVideo()">      
-    
-    <audio id="bgMusic">
+
+    <!-- autoplay + muted เพื่อให้ browser ยอมเล่น -->
+    <audio id="bgMusic" autoplay muted>
         <source src="soundeffect/leva-in-the-dark-176514.mp3" type="audio/mp3">
     </audio>
 
@@ -67,36 +68,38 @@
 
         video1.onended = function() {
             video1.classList.remove('show');
-            setTimeout(() => {
-                video1.style.display = 'none';
-                video2.classList.add('show');
+            video1.style.display = 'none';
 
-                video2.play().catch(err => console.log("Autoplay blocked:", err));
+            video2.classList.add('show');
+            video2.play().catch(err => console.log("Autoplay blocked:", err));
 
+            // ✅ เริ่มจับเวลา 10 วิหลัง video2 เล่น
+            video2.onplay = function() {
                 setTimeout(() => {
+                    bgMusic.muted = false;   // ปลด mute เพื่อให้ได้ยินเสียง
                     bgMusic.play().catch(err => console.log("Audio autoplay blocked:", err));
-                }, 8000);
+                }, 10000); // 10 วินาที
+            };
 
-                video2.onended = function() {
-                    video2.classList.remove('show');
-                    video2.style.display = 'none';
+            video2.onended = function() {
+                video2.classList.remove('show');
+                video2.style.display = 'none';
 
-                    video3.classList.add('show');
-                    video3.play().catch(err => console.log("Autoplay blocked:", err));
+                video3.classList.add('show');
+                video3.play().catch(err => console.log("Autoplay blocked:", err));
 
-                    video3.onended = function() {
-                        if (!bgMusic.ended) {
-                            video3.currentTime = 0;
-                            video3.play();
-                        }
-                    };
+                video3.onended = function() {
+                    if (!bgMusic.ended) {
+                        video3.currentTime = 0;
+                        video3.play();
+                    }
                 };
+            };
 
-                bgMusic.onended = function() {
-                    video3.onended = null;
-                    video3.pause();
-                };
-            }, 1000);
+            bgMusic.onended = function() {
+                video3.onended = null;
+                video3.pause();
+            };
         };
     }
 </script>
