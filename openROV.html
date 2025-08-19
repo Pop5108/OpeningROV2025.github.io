@@ -40,7 +40,7 @@
 <body onload="playVideo()">      
 
     <!-- autoplay + muted เพื่อให้ browser ยอมเล่น -->
-    <audio id="bgMusic" autoplay muted>
+    <audio id="bgMusic" autoplay>
         <source src="soundeffect/leva-in-the-dark-176514.mp3" type="audio/mp3">
     </audio>
 
@@ -76,7 +76,6 @@
             // ✅ เริ่มจับเวลา 10 วิหลัง video2 เล่น
             video2.onplay = function() {
                 setTimeout(() => {
-                    bgMusic.muted = false;   // ปลด mute เพื่อให้ได้ยินเสียง
                     bgMusic.play().catch(err => console.log("Audio autoplay blocked:", err));
                 }, 10000); // 10 วินาที
             };
@@ -105,3 +104,4 @@
 </script>
 </body>
 </html>
+
